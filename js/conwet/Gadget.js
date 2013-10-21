@@ -33,7 +33,7 @@ conwet.Gadget = Class.create({
         this.outputTextEvent   = new conwet.events.Event('output_text_event');
         this.searchTextEvent   = new conwet.events.Event('search_text_event');
         
-        this.controller = new conwet.WFSController(this);
+        this.controller = new conwet.GeoNamesController(this);
 
         this.searchTextSlot    = new conwet.events.Slot('search_text_slot', function(text) {
             this.searchInput.value = text;
@@ -46,7 +46,9 @@ conwet.Gadget = Class.create({
         this.wfsServiceSlot   = new conwet.events.Slot('wfs_service_slot', function(service) {
             service = JSON.parse(service);
 
-            if ((typeof service == 'object') && ('type' in service) && ('url' in service) && ('service_type' in service) && ('name' in service) && (service.type == "WFS") && (service.url != "")) {
+            if ((typeof service == 'object') && ('type' in service) && ('url' in service) &&
+                    ('service_type' in service) && ('name' in service) && (service.type == "WFS") &&
+                    (service.service_type == "GEONAMES") && (service.url != "")) {
                 this.addWfsService(service, true);
             }
         }.bind(this));
@@ -182,13 +184,6 @@ conwet.Gadget = Class.create({
             }
         }catch(e){};
         
-        //Create the controller
-        if(service.service_type == 'MNE' || service.service_type == 'EGN' || service.service_type == 'INSPIRE')
-            this.controller = new conwet.WFSController(this);
-        else if(service.service_type == 'GEONAMES')
-            this.controller = new conwet.GeoNamesController(this);
-        else
-            this.showMessage(_("Tipo de servicio desconocido"));
     },
 
     /*
