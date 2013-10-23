@@ -111,6 +111,10 @@ conwet.Gadget = Class.create({
         //Text input containing the text to be searched
         this.searchInput = document.createElement("input");
         this.searchInput.type = "text";
+        this.searchInput.onkeydown = function(k){
+           if(k.keyCode == 13)
+               this.launchSearch();
+        }.bind(this);
         $(this.searchInput).addClassName("search");
         searchDiv.appendChild(this.searchInput);
 
@@ -118,13 +122,15 @@ conwet.Gadget = Class.create({
             "classNames": ["search_button"],
             "title"     : _("Buscar topónimo"),
             "value"     : _("Buscar"),
-            "onClick"   : function(e) {
-                this.sendSearch(this.searchInput.value);
-                this.controller._sendSearchRequest(JSON.parse(this.serviceSelect.getValue()), this.searchInput.value, this.propertySelect.getValue()).bind(this);
-            }.bind(this)
+            "onClick"   : this.launchSearch.bind(this)
         });
         header.appendChild(searchButton);
 
+    },
+    
+    launchSearch: function(){
+        this.sendSearch(this.searchInput.value);
+        this.controller._sendSearchRequest(JSON.parse(this.serviceSelect.getValue()), this.searchInput.value, this.propertySelect.getValue()).bind(this);  
     },
 
     /*
