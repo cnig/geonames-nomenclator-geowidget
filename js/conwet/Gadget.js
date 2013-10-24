@@ -35,9 +35,25 @@ conwet.Gadget = Class.create({
         
         this.controller = new conwet.GeoNamesController(this);
 
+        //Receive multiple values and search with them
         this.searchTextSlot    = new conwet.events.Slot('search_text_slot', function(text) {
-            this.searchInput.value = text;
-            this._sendSearchRequest(JSON.parse(this.serviceSelect.getValue()), this.searchInput.value, this.propertySelect.getValue());
+            var data;
+            try{
+                data = JSON.parse(text);
+            }catch(e){
+                data = text;
+            }
+            var inputs = $$("input.search");
+            
+            if(inputs.length > 0){
+                if(typeof data == "string"){
+                    inputs[0].setValue(data);
+                }else if(data != null && data.length > 0){
+                    for(var x = 0; x < inputs.length && x < data.length; x++)
+                        inputs[x].setValue(data[x]);
+                }
+                this.launchSearch();
+            }
         }.bind(this));
 
         this.serviceConfiguration = null; //Contains the configuration of the service in use
@@ -130,7 +146,7 @@ conwet.Gadget = Class.create({
     
     launchSearch: function(){
         this.sendSearch(this.searchInput.value);
-        this.controller._sendSearchRequest(JSON.parse(this.serviceSelect.getValue()), this.searchInput.value, this.propertySelect.getValue()).bind(this);  
+        this.controller._sendSearchRequest(JSON.parse(this.serviceSelect.getValue()), this.searchInput.value, this.propertySelect.getValue());  
     },
 
     /*
@@ -224,9 +240,10 @@ conwet.Gadget = Class.create({
      */
     sendLocationInfo: function(lon, lat, title) {
         this.locationInfoEvent.send(JSON.stringify([{
-            "lon": lon,
-            "lat": lat,
-            "title": title
+            lon: lon,
+            lat: lat,
+            coordinates: lon + "," + lat,
+            title: title
         }]));
     },
 
