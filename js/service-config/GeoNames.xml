@@ -15,6 +15,7 @@
         <lon>lng</lon>
         <displayInfo>name</displayInfo>
         <displayInfo headChar="(" trailChar=")">toponymName</displayInfo>
+        <outputText attribute="lang" attributeValue="link">alternateName</outputText>
     </results>
     <details>
         <detailslevel>
@@ -52,6 +53,10 @@
         <detailslevel>
             <label>Fcode</label>
             <path>fcode</path>
+        </detailslevel>
+        <detailslevel>
+            <label>Link</label>
+            <path attribute="lang" attributeValue="link">alternateName</path>
         </detailslevel>
     </details>
 </serviceConfig>

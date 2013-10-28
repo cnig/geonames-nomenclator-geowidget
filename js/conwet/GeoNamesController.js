@@ -57,11 +57,12 @@ conwet.GeoNamesController = Class.create({
  	//var format = new OpenLayers.Format.CSWGetFeatures();	 
         //var result = format.write(options);
         var parameters = {
-            "q": word,
-            "maxRows": this.gadget.serviceConfiguration.request[0].maxrows[0].Text,
-            "lang": this.gadget.serviceConfiguration.request[0].lang[0].Text,
-            "username": this.gadget.serviceConfiguration.request[0].username[0].Text
-            };
+            q: word,
+            maxRows: this.gadget.serviceConfiguration.request[0].maxrows[0].Text,
+            lang: this.gadget.serviceConfiguration.request[0].lang[0].Text,
+            username: this.gadget.serviceConfiguration.request[0].username[0].Text,
+            style: "full"
+        };
 
         this.gadget.showMessage("Solicitando datos al servidor.", true);
         //TODO Gif chulo para esperar
@@ -106,10 +107,11 @@ conwet.GeoNamesController = Class.create({
             };
 
             var showInfo = this.gadget.serviceConfiguration.results[0].displayInfo;
+            var outputText = this.gadget.serviceConfiguration.results[0].outputText;
             
             div.title = "Send event";
             div.observe("click", function(e) {
-                this.self.gadget.sendText(this.self.gadget.parseUtils.getDOMValue(this.entity, showInfo[0]));
+                this.self.gadget.sendText(this.self.gadget.parseUtils.getDOMValue(this.entity, outputText[0]));
                 this.self._showDetails(this.entity);
                 //this.self._selectFeature(this.feature, this.div);
             }.bind(context));
