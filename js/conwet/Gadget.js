@@ -236,13 +236,6 @@ conwet.Gadget = Class.create({
     },
 
     /*
-     * This functions sends an event with the location.
-     */
-    sendLocation: function(lon, lat) {
-        this.locationEvent.send(lon + "," + lat);
-    },
-
-    /*
      * This function sends and event with the location info
      */
     sendLocationInfo: function(lon, lat, title) {
