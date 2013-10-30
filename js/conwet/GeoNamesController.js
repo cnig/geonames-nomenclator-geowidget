@@ -173,8 +173,7 @@ conwet.GeoNamesController = Class.create({
             location = this.gadget.transformer.advancedTransform(location, srs, this.gadget.transformer.DEFAULT.projCode);
         }*/
 
-        //Send the location and location info (location + name)
-        this.gadget.sendLocation(location.lon, location.lat);
+        //Send the location info (location + name)
         this.gadget.sendLocationInfo(location.lon, location.lat, locationInfo);
 
     }    

@@ -29,7 +29,6 @@ conwet.Gadget = Class.create({
     initialize: function() {
         
         this.locationInfoEvent = new conwet.events.Event('location_info_event');
-        this.locationEvent     = new conwet.events.Event('location_event');
         this.outputTextEvent   = new conwet.events.Event('output_text_event');
         this.searchTextEvent   = new conwet.events.Event('search_text_event');
         
@@ -86,13 +85,15 @@ conwet.Gadget = Class.create({
 
         var serviceLabel = document.createElement("div");
         $(serviceLabel).addClassName("label");
-        serviceLabel.appendChild(document.createTextNode(_("Servicio WFS:")));
+        serviceLabel.appendChild(document.createTextNode(_("Servicio:")));
         header.appendChild(serviceLabel);
 
         //Service selector
-        this.serviceSelect = new StyledElements.StyledSelect({"onChange": function(){
+        this.serviceSelect = new StyledElements.StyledSelect();
+        this.serviceSelect.addEventListener("change", function(){
+            if(this.serviceSelect.getValue() != "")
                 this.setWfsService(JSON.parse(this.serviceSelect.getValue()));
-        }});
+        }.bind(this));
         this.serviceSelect.addClassName("service");
         this.serviceSelect.textDiv.hide();
         this.serviceSelect.insertInto(header);
@@ -113,7 +114,7 @@ conwet.Gadget = Class.create({
         header.appendChild(searchLabel);
 
         //Select with the properties that can be used to search in this service
-        this.propertySelect = new StyledElements.StyledSelect({"onChange": function(){}});
+        this.propertySelect = new StyledElements.StyledSelect();
         this.propertySelect.textDiv.hide();
         //this.propertySelect.addClassName("search"); TEMPORAL!!
         this.propertySelect.addClassName("hidden"); //TEMPORAL!!
