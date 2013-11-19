@@ -32,7 +32,7 @@ conwet.GeoNamesController = Class.create({
         if(auto == null || auto == false){
             this.parser = new conwet.parser.ConfigParser(gadget);
         }else{
-            //TODO
+            this.parser = new conwet.parser.AutoParser(gadget);
         }
     },
     
