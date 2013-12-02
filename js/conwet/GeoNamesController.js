@@ -79,7 +79,7 @@ conwet.GeoNamesController = Class.create({
             }.bind(this)
         });
     },
-
+    
     /**
      * This functions shows a list of the results of the search done.
      */
@@ -122,37 +122,49 @@ conwet.GeoNamesController = Class.create({
                 this.div.removeClassName("highlight");
             }.bind(context), false);
             
-            //Load the separator character from the service configuration file
-            var separator = this.gadget.serviceConfiguration.results[0].separator;
-            if(separator == null)
-                separator = " ";
-            
+            //Show all the info that the config specifies
             var span = document.createElement("span");
-            
-            for(var x = 0; x < showInfo.length; x++){
-                
-                //Add the separator between fields
-                if(span.innerHTML != null)
-                    span.innerHTML += separator;
-                
-                //If a headchar is defined, add it before the field.
-                if(showInfo[x].headChar != null)
-                    span.innerHTML += showInfo[x].headChar;
-                
-                //Add the field text
-                span.innerHTML += this.gadget.parseUtils.getDOMValue(entity, showInfo[x]);
-                
-                //If a trailChar is defined, add it after the field
-                if(showInfo[x].trailChar != null)
-                    span.innerHTML += showInfo[x].trailChar;
-            }
+            span.innerHTML = this._mulpipleDisplayToHtml(entity, showInfo);
             div.appendChild(span);
 
             $("list").appendChild(div);
         }
     },
+    
+     /**
+     * This method retuns the HTML given a multiple configuration parameter (that can contain
+     * headChar and trailChar attributes) from the configuration file.
+     */        
+    _mulpipleDisplayToHtml: function(entity, displayConfig){
+        //Load the separator character from the service configuration file
+        var separator = this.gadget.serviceConfiguration.results[0].separator;
+        if(separator == null)
+            separator = " ";
+
+        var texto = "";
+
+        for(var x = 0; x < displayConfig.length; x++){
+
+            //Add the separator between fields
+            if(texto != null && texto != "")
+                texto += separator;
+
+            //If a headchar is defined, add it before the field.
+            if(displayConfig[x].headChar != null)
+                texto += displayConfig[x].headChar;
+
+            //Add the field text
+            texto += this.gadget.parseUtils.getDOMValue(entity, displayConfig[x]);
+
+            //If a trailChar is defined, add it after the field
+            if(displayConfig[x].trailChar != null)
+                texto += displayConfig[x].trailChar;
+        }
+
+        return texto;
+    },
             
-            /*
+    /*
      * Displays more info about the selected entry in the list of features.
      */
     _showDetails: function(entity) {
