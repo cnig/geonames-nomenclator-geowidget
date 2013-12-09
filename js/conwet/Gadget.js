@@ -102,7 +102,6 @@ conwet.Gadget = Class.create({
 
         //Select with the properties that can be used to search in this service
         this.propertySelect = new StyledElements.StyledSelect();
-        this.propertySelect.textDiv.hide();
         //this.propertySelect.addClassName("search"); TEMPORAL!!
         this.propertySelect.addClassName("hidden"); //TEMPORAL!!
         this.propertySelect.addEntries([{label: _('Search by'), value: ''}]);
