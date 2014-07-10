@@ -4,7 +4,7 @@
         <Vendor>CoNWeT</Vendor>
         <Name>geonames-nomenclator-geowidget</Name>
         <DisplayName>Geonames Nomenclator</DisplayName>
-        <Version>0.4.1</Version>
+        <Version>0.4.2</Version>
         <Author>avera</Author>
         <Mail>avera@conwet.com</Mail>
         <Description>This widget allows users to make place names searches by means of a Geonames nomenclator service.</Description>
