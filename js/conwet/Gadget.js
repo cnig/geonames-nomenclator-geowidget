@@ -100,7 +100,7 @@ conwet.Gadget = Class.create({
 
         var searchLabel = document.createElement("div");
         $(searchLabel).addClassName("label");
-        searchLabel.appendChild(document.createTextNode(_("Topónimo:")));
+        searchLabel.appendChild(document.createTextNode(_("Place name:")));
         header.appendChild(searchLabel);
 
         //Select with the properties that can be used to search in this service
@@ -128,8 +128,8 @@ conwet.Gadget = Class.create({
 
         var searchButton = conwet.ui.UIUtils.createButton({
             "classNames": ["search_button"],
-            "title"     : _("Buscar topónimo"),
-            "value"     : _("Buscar"),
+            "title"     : _("Search"),
+            "value"     : _("Search"),
             "onClick"   : this.launchSearch.bind(this)
         });
         header.appendChild(searchButton);
